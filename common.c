@@ -3,9 +3,8 @@
 #include <string.h>
 #include "common.h"
 
-void get_column(char *line, char **ptrColumn, int colNum) {
+char * get_column(char *line, char *column, int colNum) {
     int tab1, tab2, tabC, i, lenCol;
-    char *column = (*ptrColumn);
     tab1 = 0;
     tab2 = 0;
     tabC = 0;
@@ -28,4 +27,5 @@ void get_column(char *line, char **ptrColumn, int colNum) {
     line += tab1 + 1;
     strncpy(column, line, lenCol-1);
     column[strlen(column)] = '\0';
+    return column;
 }

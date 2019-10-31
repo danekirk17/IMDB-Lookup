@@ -7,7 +7,7 @@
 struct name_basics * get_name(char *dir) {
     struct name_basics arr[1];
     FILE *fp;
-    int bytes;
+    int bytes, cActors;
     char *line = malloc(sizeof(char) * 256);
     char *col;
     /*open data file*/
@@ -26,10 +26,17 @@ struct name_basics * get_name(char *dir) {
     bytes = ftell(fp);
     fseek(fp, 0, SEEK_SET);
     /*begin reading*/
+    cActors = 0;
     while (fgets(line, 256, fp) != NULL) {
-        get_column(line, &col, 0);
+        col = get_column(line, col, 4);
         printf("%s\n", col);
+        if (strstr(col, "actor") != NULL || strstr(col, "actress") != NULL)
+        {
+            printf("FOUND ACTOR/ACTRESS\n");
+            cActors++;
+        }
     }
+    printf("NUM Actors: %d\n", cActors);
 
     fclose(fp);
     return arr;
