@@ -4,4 +4,5 @@ struct name_basics
 	char *primaryName;
 };
 
-struct name_basics * get_name(char *dir);
+struct name_basics * get_name(char *dir, int *arrSize);
+void freeNameArr(struct name_basics * arr, int size);

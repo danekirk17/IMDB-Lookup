@@ -1,1 +1,1 @@
-char * get_column(char *line, char *column, int colNum);
+void get_column(char *line, char *column, int colNum);

@@ -3,7 +3,7 @@
 #include <string.h>
 #include "common.h"
 
-char * get_column(char *line, char *column, int colNum) {
+void get_column(char *line, char *column, int colNum) {
     int tab1, tab2, tabC, i, lenCol;
     tab1 = 0;
     tab2 = 0;
@@ -16,16 +16,26 @@ char * get_column(char *line, char *column, int colNum) {
             if (tabC == colNum)
             {
                 tab1 = i;
-            } else if (tabC == (colNum+1)) {
+            } else if (tabC == (colNum+1))
+            {
                 tab2 = i;
                 break;
             }
         }
     }
+    
+    if (colNum != 0)
+    {
+        tab1++;
+    }
     lenCol = tab2-tab1;
-    column = malloc(256);
-    line += tab1 + 1;
-    strncpy(column, line, lenCol-1);
-    column[strlen(column)] = '\0';
-    return column;
+    line += tab1;
+    /*
+    if (column == NULL)
+    {
+        column = malloc(lenCol+1);
+    }
+    */
+    strncpy(column, line, lenCol);
+    column[lenCol] = '\0';
 }

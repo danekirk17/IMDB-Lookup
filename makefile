@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-Wall -ansi -pedantic -I$(INCDIR)
+CFLAGS=-Wall -ansi -pedantic -I$(INCDIR) -g
 INCDIR=includes
 OBJDIR=bin
 SRCDIR=src
@@ -25,7 +25,9 @@ principals.o : principals.c principals.h
 title.o : title.c title.h
 	$(CC) $(CFLAGS) -c -o $@ $<
 
-run :
-	./a3
+run : a3
+	./a3 files
 clean :
 	rm a3 *.o
+gdb : a3
+	gdb ./a3 files
