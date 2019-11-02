@@ -65,28 +65,34 @@ int main(int argc, char *argv[]) {
 	struct name_data *nameArr;
 	struct title_data *titleArr;
 	struct principal_data *prinArr;
-
+	struct name_basics *foundName;
 	struct title_basics *foundTitle;
+	struct principal_basics *foundPrin;
 
-/*
+
     nameArr = get_name(argv[1]);
     printf("%d\n", nameArr->size);
-*/
+
+    build_nindex(nameArr);
+
+    foundName = find_primary_name(nameArr, "Anthony Daniels");
+
+/*
     titleArr = get_title(argv[1]);
     printf("lines: %d\n", titleArr->size);
 
     build_tindex(titleArr);
 
     foundTitle = find_primary_title(titleArr, "Star Wars: Episode V - The Empire Strikes Back");
-
-    if (foundTitle == NULL)
+*/
+    if (foundName == NULL)
     {
-    	printf("TITLE NOT FOUND\n");
+    	printf("NAME NOT FOUND\n");
     }
     else
     {
-    	printf("%s\n", foundTitle->tconst);
-    	printf("%s\n", foundTitle->primaryTitle);
+    	printf("%s\n", foundName->nconst);
+    	printf("%s\n", foundName->primaryName);
 	}
 
 /*

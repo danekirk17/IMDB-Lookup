@@ -3,6 +3,7 @@
 #include <string.h>
 #include "name.h"
 #include "common.h"
+#include "binary.h"
 
 struct name_basics * find_primary_name(struct name_data *data, char *title)
 {
@@ -21,7 +22,7 @@ struct name_basics * find_primary_name(struct name_data *data, char *title)
     
 }
 
-void build_tindex(struct name_data *arr)
+void build_nindex(struct name_data *arr)
 {
     int i;
     for (i = 0; i < arr->size; i++)

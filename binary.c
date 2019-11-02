@@ -5,7 +5,7 @@
 #include "title.h"
 #include "binary.h"
 
-void add_node(struct node **root, char *string, struct title_basics *element)
+void add_node(struct node **root, char *string, void *element)
 {
     if (*root) /* there's a node here */
     {
