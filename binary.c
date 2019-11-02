@@ -9,7 +9,7 @@ void add_node(struct node **root, char *string, struct title_basics *element)
 {
     if (*root) /* there's a node here */
     {
-        if ( strcmp(string,(*root)->key) < 0 )
+        if ( strcmp(string, (*root)->key) < 0 )
         {
             add_node( &((*root)->children[0]), string, element );
         }

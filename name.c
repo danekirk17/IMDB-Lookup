@@ -4,6 +4,32 @@
 #include "name.h"
 #include "common.h"
 
+struct name_basics * find_primary_name(struct name_data *data, char *title)
+{
+    struct node *found_node;
+
+    found_node = find(data->primaryName_root, title);
+
+    if (found_node == NULL)
+    {
+        return NULL;
+    }
+    else
+    {
+        return ((struct name_basics *)(found_node->data));
+    }
+    
+}
+
+void build_tindex(struct name_data *arr)
+{
+    int i;
+    for (i = 0; i < arr->size; i++)
+    {
+        add_node(&(arr->primaryName_root), (arr->array[i]).primaryName, &((arr->array)[i]));
+    }
+}
+
 struct name_data * get_name(char *dir) {
     struct name_basics *arr;
     struct name_data *arr_struct = malloc(sizeof(struct name_data));

@@ -65,6 +65,9 @@ int main(int argc, char *argv[]) {
 	struct name_data *nameArr;
 	struct title_data *titleArr;
 	struct principal_data *prinArr;
+
+	struct title_basics *foundTitle;
+
 /*
     nameArr = get_name(argv[1]);
     printf("%d\n", nameArr->size);
@@ -74,8 +77,17 @@ int main(int argc, char *argv[]) {
 
     build_tindex(titleArr);
 
-    printf("%s\n", titleArr->tconst_root->key);
-    printf("%s\n", ((struct title_basics *)(titleArr->tconst_root->data))->primaryTitle);
+    foundTitle = find_primary_title(titleArr, "Star Wars: Episode V - The Empire Strikes Back");
+
+    if (foundTitle == NULL)
+    {
+    	printf("TITLE NOT FOUND\n");
+    }
+    else
+    {
+    	printf("%s\n", foundTitle->tconst);
+    	printf("%s\n", foundTitle->primaryTitle);
+	}
 
 /*
     prinArr = get_principals(argv[1]);

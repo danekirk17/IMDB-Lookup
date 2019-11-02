@@ -5,16 +5,34 @@
 #include "common.h"
 #include "binary.h"
 
+struct title_basics * find_primary_title(struct title_data *data, char *title)
+{
+    struct node *found_node;
+
+    found_node = find(data->primaryTitle_root, title);
+
+    if (found_node == NULL)
+    {
+        return NULL;
+    }
+    else
+    {
+        return ((struct title_basics *)(found_node->data));
+    }
+    
+}
+
 void build_tindex(struct title_data *arr)
 {
     int i;
     for (i = 0; i < arr->size; i++)
     {
-        add_node(&(arr->tconst_root), (arr->array[i]).primaryTitle, &((arr->array)[i]));
+        add_node(&(arr->primaryTitle_root), (arr->array[i]).primaryTitle, &((arr->array)[i]));
     }
 }
 
-struct title_data * get_title(char *dir) {
+struct title_data * get_title(char *dir)
+{
     struct title_basics *arr;
     struct title_data *arr_struct = malloc(sizeof(struct title_data));
     FILE *fp;
@@ -72,7 +90,8 @@ struct title_data * get_title(char *dir) {
     return arr_struct;
 }
 
-void freeTitleArr(struct title_basics *arr, int size) {
+void freeTitleArr(struct title_basics *arr, int size)
+{
     int i;
     for (i = 0; i < size; ++i)
     {

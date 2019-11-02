@@ -3,7 +3,34 @@
 #include <string.h>
 #include "common.h"
 
-void get_column(char *line, char *column, int colNum) {
+struct node *find( struct node *root, char *value )
+{
+    if (root)
+    {
+        if ( strcmp( value, root->key ) == 0)
+        {
+            return root;
+        }
+        else
+        {
+            if ( strcmp(value, (root)->key) < 0 )
+            {
+                return find( root->children[0], value );
+            }
+            else /* value>=(root)->number */
+            {
+                return find( root->children[1], value );
+            }
+        }
+    }
+    else 
+    {
+        return NULL;
+    }
+}
+
+void get_column(char *line, char *column, int colNum)
+{
     int tab1, tab2, tabC, i, lenCol;
     tab1 = 0;
     tab2 = 0;
