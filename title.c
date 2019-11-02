@@ -3,9 +3,20 @@
 #include <string.h>
 #include "title.h"
 #include "common.h"
+#include "binary.h"
 
-struct title_basics * get_title(char *dir, int *arrSize) {
+void build_tindex(struct title_data *arr)
+{
+    int i;
+    for (i = 0; i < arr->size; i++)
+    {
+        add_node(&(arr->tconst_root), (arr->array[i]).primaryTitle, &((arr->array)[i]));
+    }
+}
+
+struct title_data * get_title(char *dir) {
     struct title_basics *arr;
+    struct title_data *arr_struct = malloc(sizeof(struct title_data));
     FILE *fp;
     int cTitles;
     char line[1024];
@@ -19,7 +30,7 @@ struct title_basics * get_title(char *dir, int *arrSize) {
     fp = fopen(fullDir, "r");
     if (fp == NULL) {
         printf("FOPEN FAILED\n");
-        return -1;
+        return NULL;
     }
     printf("Opening: %s\n", fullDir);
     /*find all the actors in the file*/
@@ -34,7 +45,7 @@ struct title_basics * get_title(char *dir, int *arrSize) {
     }
     /*create array of actors to be returned*/
     arr = malloc(sizeof(struct title_basics) * cTitles);
-    (*arrSize) = cTitles;
+    arr_struct->size = cTitles;
     /*read whole file again and save actors data in the array*/
     fseek(fp, 0, SEEK_SET);
     cTitles = 0;
@@ -54,7 +65,11 @@ struct title_basics * get_title(char *dir, int *arrSize) {
     }
 
     fclose(fp);
-    return arr;
+
+    arr_struct->array = arr;    /*add the title array to the struct to be returned.*/
+    arr_struct->tconst_root = 0;    /*set tree roots to zero*/
+    arr_struct->primaryTitle_root = 0;
+    return arr_struct;
 }
 
 void freeTitleArr(struct title_basics *arr, int size) {

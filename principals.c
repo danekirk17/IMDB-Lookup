@@ -4,8 +4,9 @@
 #include "principals.h"
 #include "common.h"
 
-struct title_principals * get_principals(char *dir, int *arrSize) {
+struct principal_data * get_principals(char *dir) {
     struct title_principals *arr;
+    struct principal_data *arr_struct = malloc(sizeof(struct principal_data));
     FILE *fp;
     int cActors;
     char line[1024];
@@ -18,7 +19,7 @@ struct title_principals * get_principals(char *dir, int *arrSize) {
     fp = fopen(fullDir, "r");
     if (fp == NULL) {
         printf("FOPEN FAILED\n");
-        return -1;
+        return NULL;
     }
     printf("Opening: %s\n", fullDir);
     /*find all the relevant lines in the file*/
@@ -32,7 +33,7 @@ struct title_principals * get_principals(char *dir, int *arrSize) {
     }
     /*create array to be returned*/
     arr = malloc(sizeof(struct title_principals) * cActors);
-    (*arrSize) = cActors;
+    arr_struct->size = cActors;
     /*read whole file again and save data in the array*/
     fseek(fp, 0, SEEK_SET);
     cActors = 0;
@@ -54,7 +55,12 @@ struct title_principals * get_principals(char *dir, int *arrSize) {
     }
 
     fclose(fp);
-    return arr;
+
+    arr_struct->array = arr;    /*add the title array to the struct to be returned.*/
+    arr_struct->nconst_root = 0;    /*set tree roots to zero*/
+    arr_struct->tconst_root = 0;
+    arr_struct->characters_root = 0;
+    return arr_struct;
 }
 
 void freePrinArr(struct title_principals *arr, int size) {

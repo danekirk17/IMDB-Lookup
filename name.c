@@ -4,8 +4,9 @@
 #include "name.h"
 #include "common.h"
 
-struct name_basics * get_name(char *dir, int *arrSize) {
+struct name_data * get_name(char *dir) {
     struct name_basics *arr;
+    struct name_data *arr_struct = malloc(sizeof(struct name_data));
     FILE *fp;
     int cActors;
     char line[256];
@@ -18,7 +19,7 @@ struct name_basics * get_name(char *dir, int *arrSize) {
     fp = fopen(fullDir, "r");
     if (fp == NULL) {
         printf("FOPEN FAILED\n");
-        return -1;
+        return NULL;
     }
     printf("Opening: %s\n", fullDir);
     /*find all the actors in the file*/
@@ -32,7 +33,7 @@ struct name_basics * get_name(char *dir, int *arrSize) {
     }
     /*create array of actors to be returned*/
     arr = malloc(sizeof(struct name_basics) * cActors);
-    (*arrSize) = cActors;
+    arr_struct->size = cActors;
     /*read whole file again and save actors data in the array*/
     fseek(fp, 0, SEEK_SET);
     cActors = 0;
@@ -51,7 +52,11 @@ struct name_basics * get_name(char *dir, int *arrSize) {
     }
 
     fclose(fp);
-    return arr;
+
+    arr_struct->array = arr;	/*add the name array to the struct to be returned.*/
+    arr_struct->nconst_root = 0;	/*set tree roots to zero*/
+    arr_struct->primaryName_root = 0;
+    return arr_struct;
 }
 
 void freeNameArr(struct name_basics *arr, int size) {

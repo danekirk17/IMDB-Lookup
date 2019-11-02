@@ -22,7 +22,7 @@ name.o : name.c name.h binary.h common.h
 principals.o : principals.c principals.h
 	$(CC) $(CFLAGS) -c -o $@ $<
 
-title.o : title.c title.h
+title.o : title.c title.h binary.h
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 run : a3
