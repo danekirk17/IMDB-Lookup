@@ -5,11 +5,11 @@
 #include "common.h"
 #include "binary.h"
 
-struct name_basics * find_primary_name(struct name_data *data, char *title)
+struct name_basics * find_nconst(struct name_data *data, char *nconst)
 {
     struct node *found_node;
 
-    found_node = find(data->primaryName_root, title);
+    found_node = find(data->nconst_root, nconst);
 
     if (found_node == NULL)
     {
@@ -27,11 +27,37 @@ void build_nindex(struct name_data *arr)
     int i;
     for (i = 0; i < arr->size; i++)
     {
+        add_node(&(arr->nconst_root), (arr->array[i]).nconst, &((arr->array)[i]));
+    }
+}
+
+struct name_basics * find_primary_name(struct name_data *data, char *title)
+{
+    struct node *found_node;
+
+    found_node = find(data->primaryName_root, title);
+
+    if (found_node == NULL)
+    {
+        return NULL;
+    }
+    else
+    {
+        return ((struct name_basics *)(found_node->data));
+    }
+}
+
+void build_pnindex(struct name_data *arr)
+{
+    int i;
+    for (i = 0; i < arr->size; i++)
+    {
         add_node(&(arr->primaryName_root), (arr->array[i]).primaryName, &((arr->array)[i]));
     }
 }
 
-struct name_data * get_name(char *dir) {
+struct name_data * get_name(char *dir)
+{
     struct name_basics *arr;
     struct name_data *arr_struct = malloc(sizeof(struct name_data));
     FILE *fp;
@@ -70,6 +96,7 @@ struct name_data * get_name(char *dir) {
         {
             get_column(line, col, 0);                            /*get their nconst*/
             arr[cActors].nconst = malloc(strlen(col) + 1);      /*malloc space for their nconst in the array*/
+            strrev(col);                                        /*reverse nconst before entering it into table*/
             strcpy(arr[cActors].nconst, col);                   /*copy nconst into the array*/
             get_column(line, col, 1);                           /*repeat for their names*/
             arr[cActors].primaryName = malloc(strlen(col) + 1);
@@ -86,7 +113,8 @@ struct name_data * get_name(char *dir) {
     return arr_struct;
 }
 
-void freeNameArr(struct name_basics *arr, int size) {
+void freeNameArr(struct name_basics *arr, int size)
+{
     int i;
     for (i = 0; i < size; ++i)
     {

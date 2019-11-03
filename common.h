@@ -9,4 +9,5 @@ struct node
 
 void get_column(char *line, char *column, int colNum);
 struct node *find( struct node *root, char *value );
+void strrev(char *string);
 #endif

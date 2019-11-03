@@ -5,6 +5,22 @@
 #include "common.h"
 #include "binary.h"
 
+struct title_basics * find_tconst(struct title_data *data, char *tconst)
+{
+    struct node *found_node;
+
+    found_node = find(data->tconst_root, tconst);
+
+    if (found_node == NULL)
+    {
+        return NULL;
+    }
+    else
+    {
+        return ((struct title_basics *)(found_node->data));
+    }
+}
+
 struct title_basics * find_primary_title(struct title_data *data, char *title)
 {
     struct node *found_node;
@@ -19,10 +35,18 @@ struct title_basics * find_primary_title(struct title_data *data, char *title)
     {
         return ((struct title_basics *)(found_node->data));
     }
-    
 }
-
+/*function builds tree: key = tconst, value = primaryTitle*/
 void build_tindex(struct title_data *arr)
+{
+    int i;
+    for (i = 0; i < arr->size; i++)
+    {
+        add_node(&(arr->tconst_root), (arr->array[i]).tconst, &((arr->array)[i]));
+    }
+}
+/*function builds tree: key = primaryTitle, value = tconst*/
+void build_ptindex(struct title_data *arr)
 {
     int i;
     for (i = 0; i < arr->size; i++)
@@ -74,6 +98,7 @@ struct title_data * get_title(char *dir)
         {
             get_column(line, col1, 0);                            /*get their tconst*/
             arr[cTitles].tconst = malloc(strlen(col1) + 1);      /*malloc space for their tconst in the array*/
+            strrev(col1);                                        /*reverse the tconst value before storing it in table*/
             strcpy(arr[cTitles].tconst, col1);                   /*copy tconst into the array*/
             get_column(line, col2, 2);                           /*repeat for their titles*/
             arr[cTitles].primaryTitle = malloc(strlen(col2) + 1);

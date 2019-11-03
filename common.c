@@ -3,6 +3,23 @@
 #include <string.h>
 #include "common.h"
 
+void strrev(char *string)
+{
+    int ind1;
+    int ind2;
+    char temp;
+    ind1 = 0;
+    ind2 = strlen(string) - 1;
+    while (ind1 < ind2)
+    {
+        temp = string[ind1];
+        string[ind1] = string[ind2];
+        string[ind2] = temp;
+        ind1++;
+        ind2--;
+    }
+}
+
 struct node *find( struct node *root, char *value )
 {
     if (root)

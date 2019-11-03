@@ -7,58 +7,6 @@
 #include "principals.h"
 #include "binary.h"
 
-void testTitle(struct title_data *arr)
-{
-	int i;
-	for (i=0;i<10;i++)
-
-  {
-
-    printf( "%s %s\n", (arr->array)[i].tconst, (arr->array)[i].primaryTitle );
-
-  }
-
-  printf( "\n" );
-
-  for (i=524619;i<524629;i++)
-
-  {
-
-    printf( "%s %s\n", (arr->array)[i].tconst, (arr->array)[i].primaryTitle );
-
-  }
-}
-
-void testPrin(struct principal_data *arr)
-{
-	int i;
-	for (i=0;i<10;i++)
-
-  {
-
-    printf( "%s %s %s\n", (arr->array)[i].tconst,
-
-                          (arr->array)[i].nconst,
-
-                          (arr->array)[i].characters );
-
-  }
-
-  printf( "\n" );
-
-  for (i=14627307;i<14627317;i++)
-
-  {
-
-    printf( "%s %s %s\n", (arr->array)[i].tconst,
-
-                          (arr->array)[i].nconst,
-
-                          (arr->array)[i].characters );
-
-  }
-}
-
 int main(int argc, char *argv[]) {
     if (argc != 2) {fprintf(stderr, "Usage: %s directory\n", argv[0]);}	/*command line input error checking*/
 
@@ -67,42 +15,29 @@ int main(int argc, char *argv[]) {
 	struct principal_data *prinArr;
 	struct name_basics *foundName;
 	struct title_basics *foundTitle;
-	struct principal_basics *foundPrin;
+	struct title_principals *foundPrin;
 
+	printf("BUILDING TITLES\n");
+	titleArr = get_title(argv[1]);
+	build_ptindex(titleArr);
+	build_tindex(titleArr);
 
-    nameArr = get_name(argv[1]);
-    printf("%d\n", nameArr->size);
+	printf("BUILDING NAMES\n");
+	nameArr = get_name(argv[1]);
+	build_pnindex(nameArr);
+	build_nindex(nameArr);
 
-    build_nindex(nameArr);
+	printf("BUILDING PRINCIPALS\n");
+	prinArr = get_principals(argv[1]);
+	build_tindex_tp(prinArr);
+	build_nindex_tp(prinArr);
 
-    foundName = find_primary_name(nameArr, "Anthony Daniels");
+	printf("READY\n");
+	foundName = find_primary_name(nameArr, "Bruce Lee");
+	foundPrin = find_nconst_tp(prinArr, foundName->nconst);
+	foundTitle = find_tconst(titleArr, foundPrin->tconst);
 
-/*
-    titleArr = get_title(argv[1]);
-    printf("lines: %d\n", titleArr->size);
+	printf("%s\n", foundTitle->primaryTitle);
 
-    build_tindex(titleArr);
-
-    foundTitle = find_primary_title(titleArr, "Star Wars: Episode V - The Empire Strikes Back");
-*/
-    if (foundName == NULL)
-    {
-    	printf("NAME NOT FOUND\n");
-    }
-    else
-    {
-    	printf("%s\n", foundName->nconst);
-    	printf("%s\n", foundName->primaryName);
-	}
-
-/*
-    prinArr = get_principals(argv[1]);
-    printf("%d\n", prinArr->size);
-
-/*
-    freeNameArr(nameArr);
-    freeTitleArr(titleArr);
-    freePrinArr(prinArr);
-*/
     return 0;
 }
