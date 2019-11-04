@@ -1,3 +1,8 @@
+/* Dane Kirkpatrick
+ * 1004843
+ * dkirkpat@uoguelph.ca
+ */
+
 #ifndef TITLE
 #define TITLE
 struct title_data

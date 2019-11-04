@@ -1,3 +1,8 @@
+/* Dane Kirkpatrick
+ * 1004843
+ * dkirkpat@uoguelph.ca
+ */
+
 #ifndef COMMON
 #define COMMON
 struct node

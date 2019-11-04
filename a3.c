@@ -1,3 +1,8 @@
+/* Dane Kirkpatrick
+ * 1004843
+ * dkirkpat@uoguelph.ca
+ */
+
 #include <stdlib.h>
 #include <stdio.h>
 #include<string.h>
@@ -77,7 +82,7 @@ int main(int argc, char *argv[])
 		            foundTitle = find_tconst(titleArr, ((struct title_principals *)(foundPrin->data))->tconst);
 					if (foundTitle != NULL)
 					{
-						printf("%s: %s\n", foundTitle->primaryTitle, ((struct title_principals *)(foundPrin->data))->characters);
+						printf("%s : %s\n", foundTitle->primaryTitle, ((struct title_principals *)(foundPrin->data))->characters);
 					}
 		        }
 				foundPrin = find(foundPrin->children[1], nconst);
@@ -107,10 +112,6 @@ int main(int argc, char *argv[])
 			}
 		}
 	}
-
-	free(titleArr);
-	free(nameArr);
-	free(prinArr);
 
     return 0;
 }

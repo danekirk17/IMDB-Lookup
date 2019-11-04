@@ -1,3 +1,8 @@
+/* Dane Kirkpatrick
+ * 1004843
+ * dkirkpat@uoguelph.ca
+ */
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
