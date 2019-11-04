@@ -19,22 +19,18 @@ int main(int argc, char *argv[])
 	struct title_basics *foundTitle;
 	struct node *foundPrin;
 	/*read data from files and build trees*/
-	printf("BUILDING TITLES\n");
 	titleArr = get_title(argv[1]);
 	build_ptindex(titleArr);
 	build_tindex(titleArr);
 
-	printf("BUILDING NAMES\n");
 	nameArr = get_name(argv[1]);
 	build_pnindex(nameArr);
 	build_nindex(nameArr);
 
-	printf("BUILDING PRINCIPALS\n");
 	prinArr = get_principals(argv[1]);
 	build_tindex_tp(prinArr);
 	build_nindex_tp(prinArr);
 
-	printf("READY\n");
 	/*get input from user*/
 	while (1) {
 		int i;
@@ -56,6 +52,7 @@ int main(int argc, char *argv[])
 			whiteRemove = &input[0];
 			while (whiteRemove[0] != ' ') {whiteRemove++; i++;}
 			strncpy(command, input, i);
+			command[i] = '\0';
 			/*separate key*/
 			input += i;
 			while (input[0] == ' ') {input++;}
@@ -72,21 +69,7 @@ int main(int argc, char *argv[])
 
 			char nconst[15];
 			strcpy(nconst, foundPrin->key);
-			/*
-			while (foundPrin)
-			{
-				if ( strcmp( nconst, foundPrin->key ) == 0)
-		        {
-		            foundTitle = find_tconst(titleArr, ((struct title_principals *)(foundPrin->data))->tconst);
-					if (foundTitle != NULL)
-					{
-						printf("%s: %s\n", foundTitle->primaryTitle, ((struct title_principals *)(foundPrin->data))->characters);
-					}
-		        }
-				foundPrin = find(foundPrin->children[0], nconst);
-			}
-			foundPrin = find_nconst_tp(prinArr, foundName->nconst);
-			*/
+
 			while (foundPrin)
 			{
 				if ( strcmp( nconst, foundPrin->key ) == 0)
@@ -109,21 +92,7 @@ int main(int argc, char *argv[])
 			if (foundPrin == NULL) {printf("PRIN NOT FOUND\n"); return -1;}
 			char tconst[15];
 			strcpy(tconst, foundPrin->key);
-			/*
-			while (foundPrin)
-			{
-				if ( strcmp( tconst, foundPrin->key ) == 0)
-		        {
-		            foundName = find_nconst(nameArr, ((struct name_basics *)(foundPrin->data))->nconst);
-					if (foundTitle != NULL)
-					{
-						printf("%s\n", foundName->primaryName);
-					}
-		        }
-				foundPrin = find(foundPrin->children[0], tconst);
-			}
-			foundPrin = find_tconst_tp(prinArr, foundTitle->tconst);
-			*/
+
 			while (foundPrin)
 			{
 				if ( strcmp( tconst, foundPrin->key ) == 0)

@@ -26,8 +26,8 @@ title.o : title.c title.h binary.h
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 run : a3
-	./a3 files
+	./a3 /home/courses/cis2520
 clean :
 	rm a3 *.o
 gdb : a3
-	gdb ./a3 files
+	gdb ./a3 /home/courses/cis2520
