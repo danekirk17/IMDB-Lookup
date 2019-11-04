@@ -74,7 +74,6 @@ struct title_data * get_title(char *dir)
         printf("FOPEN FAILED\n");
         return NULL;
     }
-    printf("Opening: %s\n", fullDir);
     /*find all the actors in the file*/
     cTitles = 0;
     while (fgets(line, 1024, fp) != NULL) {

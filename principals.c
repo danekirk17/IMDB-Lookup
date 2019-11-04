@@ -5,7 +5,7 @@
 #include "common.h"
 #include "binary.h"
 
-struct title_principals * find_tconst_tp(struct principal_data *data, char *tconst)
+struct node * find_tconst_tp(struct principal_data *data, char *tconst)
 {
     struct node *found_node;
 
@@ -17,7 +17,7 @@ struct title_principals * find_tconst_tp(struct principal_data *data, char *tcon
     }
     else
     {
-        return ((struct title_principals *)(found_node->data));
+        return found_node;
     }
 }
 
@@ -30,7 +30,7 @@ void build_tindex_tp(struct principal_data *arr)
     }
 }
 
-struct title_principals * find_nconst_tp(struct principal_data *data, char *nconst)
+struct node * find_nconst_tp(struct principal_data *data, char *nconst)
 {
     struct node *found_node;
 
@@ -42,7 +42,7 @@ struct title_principals * find_nconst_tp(struct principal_data *data, char *ncon
     }
     else
     {
-        return ((struct title_principals *)(found_node->data));
+        return found_node;
     }
 }
 
@@ -73,7 +73,6 @@ struct principal_data * get_principals(char *dir)
         printf("FOPEN FAILED\n");
         return NULL;
     }
-    printf("Opening: %s\n", fullDir);
     /*find all the relevant lines in the file*/
     cActors = 0;
     while (fgets(line, 1024, fp) != NULL) {

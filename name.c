@@ -74,7 +74,6 @@ struct name_data * get_name(char *dir)
         printf("FOPEN FAILED\n");
         return NULL;
     }
-    printf("Opening: %s\n", fullDir);
     /*find all the actors in the file*/
     cActors = 0;
     while (fgets(line, 256, fp) != NULL) {
