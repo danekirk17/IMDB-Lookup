@@ -31,3 +31,4 @@ clean :
 	rm a3 *.o
 gdb : a3
 	gdb ./a3 /home/courses/cis2520
+

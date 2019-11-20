@@ -105,7 +105,8 @@ int main(int argc, char *argv[])
 		            foundName = find_nconst(nameArr, ((struct title_principals *)(foundPrin->data))->nconst);
 					if (foundTitle != NULL)
 					{
-						printf("%s\n", foundName->primaryName);
+						printf("%s ", foundName->primaryName);
+						printf("%s\n", ((struct title_principals *)(foundPrin->data))->characters);
 					}
 		        }
 				foundPrin = find(foundPrin->children[1], tconst);
