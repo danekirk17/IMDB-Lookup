@@ -1,8 +1,10 @@
 # IMDB-Lookup
 
+This program's purpose is to list the filography of an actor, or the cast of a film.
+
 to compile from the command line: "make"
 
-to run: "./a3"
+to run: "./a3 \[path to data files\]"
 
 data files used can be obtained at the following urls:
 1) https://datasets.imdbws.com/name.basics.tsv.gz
